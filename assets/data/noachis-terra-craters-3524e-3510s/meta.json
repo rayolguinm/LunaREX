@@ -1,0 +1,26 @@
+{
+ "title": "Noachis_Terra_Craters_3524E_3510S",
+ "slug": "noachis-terra-craters-3524e-3510s",
+ "dtm_id": "DTEEC_084570_1445_066516_1445_A01",
+ "ortho": "ESP_066516_1445_RED_C_01_ORTHO.JP2",
+ "grid": 256,
+ "post_m": 13.614348044269448,
+ "native_post_m": 1.0039498991581,
+ "downsample": 13.56,
+ "size_m": 3471.6587512887095,
+ "z_offset_m": 1423.3270263671875,
+ "z_scale_m": 0.010731154221754807,
+ "nodata": 65535,
+ "relief_m": 697.5250244140625,
+ "window_px": [
+  1878,
+  879,
+  3458
+ ],
+ "texture_px": 1024,
+ "texture_source_gsd_m": 2.535365663303561,
+ "projection": "EQUIRECTANGULAR",
+ "ortho_emission_deg": null,
+ "valid_fraction": 1.0,
+ "credit": "HiRISE data: NASA/JPL/University of Arizona. DTM produced at HiROC by Raymundo \"R@y\" Olguin."
+}
