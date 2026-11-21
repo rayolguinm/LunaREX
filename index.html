@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="author" content="Raymundo &quot;R@y&quot; Olguin">
+<meta name="description" content="LunaREX, a scientific visualization studio for multiplanetary systems: stereo DTMs of the Moon, Mars and Europa turned into true-scale 3D terrain and XR scenes.">
+<title>LunaREX Visualization Studio</title>
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="LunaREX">
+<!-- Link preview for LinkedIn and other networks (Open Graph). LinkedIn needs absolute URLs:
+     if the repository is not named LunaREX, replace https://rayolguinm.github.io/LunaREX/ below. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LunaREX">
+<meta property="og:title" content="LunaREX · Scientific visualization studio for multiplanetary systems">
+<meta property="og:description" content="Photon to pixel to planet: real HiRISE, LROC and Galileo terrain of Mars, the Moon and Europa in true-scale 3D. By Raymundo &quot;R@y&quot; Olguin, Tucson, Arizona.">
+<meta property="og:url" content="https://rayolguinm.github.io/LunaREX/">
+<meta property="og:image" content="https://rayolguinm.github.io/LunaREX/assets/img/linkedin-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="LunaREX emblem beside a true-scale HiRISE crater rim">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://rayolguinm.github.io/LunaREX/assets/img/linkedin-card.jpg">
+<link rel="canonical" href="https://rayolguinm.github.io/LunaREX/">
+<!-- LunaREX studio site v3. Designed and engineered by Raymundo "R@y" Olguin. -->
+<link rel="preload" href="assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#studio">Skip to the content</a>
+<div class="progress-line" aria-hidden="true"></div>
+
+<header class="bar" id="bar">
+  <a class="mark" href="#top" aria-label="LunaREX, back to the top"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#fff"/><circle cx="20" cy="20" r="16.5" fill="#0a1a46"/><circle cx="23" cy="44" r="22" fill="#7d8493"/><path d="M33 6 C26 16 17 24 8 27 C5 28 6 30 9 29.6 C16 28.5 24 26 29 23" fill="none" stroke="#EE3A22" stroke-width="2.6" stroke-linecap="round"/><circle cx="20" cy="12" r="3" fill="#3f86e8"/></svg><span>Luna<i>REX</i></span></a>
+  <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav id="nav" aria-label="Chapters">
+    <a href="#studio">Studio</a>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#worlds">Worlds</a>
+    <a href="#lab-ch">Terrain lab</a>
+    <a href="#founder">Founder</a>
+    <a href="#links">Links</a>
+    <a href="#references">References</a>
+  </nav>
+</header>
+
+<!-- ============================================================ HERO -->
+<section class="hero dark" id="top" aria-label="Introduction">
+  <div class="hero-stick">
+    <div class="poster" id="heroPoster" hidden style="background-image:url(assets/data/thumbs/noachis-terra-craters-3524e-3510s.jpg)"></div>
+    <canvas id="heroGL" aria-hidden="true"></canvas>
+    <div class="hero-shade"></div>
+
+    <div class="hero-copy" id="heroCopy">
+      <div class="hero-brand">
+        <button type="button" class="logo3d hero-logo" id="heroLogo" aria-label="LunaREX emblem. Move over it to tilt it, press it to spin it."><svg viewBox="0 0 1000 1000" aria-hidden="true"><use href="#lxEmblem"/></svg></button>
+        <h1>Luna<i>REX</i></h1>
+      </div>
+      <p class="tagline">Photon to pixel to planet</p>
+      <p class="kick">A scientific visualization studio for multiplanetary systems</p>
+      <p class="lead">At the interface of electrical engineering and planetary science, we transform calibrated stereo pairs of the Moon, Mars and Europa, through photogrammetry, into 3D digital terrain models for scientific analysis and immersive XR exploration.</p>
+      <p class="lead lead-m">Calibrated stereo pairs of the Moon, Mars and Europa, turned into true-scale 3D terrain for science and XR.</p>
+      <div class="cta"><a class="btn solid" href="#lab-ch">Explore 60 DTMs in 3D</a><a class="btn line" href="#studio">Enter the studio</a></div>
+      <p class="by">Founded in Tucson, Arizona, in 2025 by <b>Raymundo "R@y" Olguin</b></p>
+    </div>
+
+    <!-- stage caption: takes the place of the headline once the descent starts -->
+    <div class="hero-stage" id="heroStage" aria-hidden="true"><b id="stageName">Photon</b><span id="stageTxt"></span></div>
+
+    <!-- instrument column: altitude, logarithmic altitude tape, the four stages -->
+    <div class="hud" aria-hidden="true">
+      <div class="alt"><b id="altVal">0 m</b><span>above the ground</span></div>
+      <div class="tape" id="tape"><i class="tape-mark" id="tapeMark"></i></div>
+      <ol class="stages" id="stages"><li>Photon</li><li>Pixel</li><li>Mesh</li><li>Planet</li></ol>
+    </div>
+
+    <p class="cue" id="cue">Scroll to descend</p>
+    <a class="skip-descent" href="#studio">Skip the descent</a>
+    <p class="collar" id="heroCollar">Noachis Terra craters, a HiRISE DTM window at true scale. NASA/JPL/University of Arizona.</p>
+  </div>
+</section>
+
+<main>
+<!-- ============================================================ 1 STUDIO -->
+<section class="chapter" id="studio"><div class="wrap">
+  <header class="ch-head"><span class="ch-num" aria-hidden="true">1</span><h2>The studio</h2><p>LunaREX turns public planetary data into terrain people can measure, print and stand on.</p></header>
+  <div class="studio">
+    <div class="emblem logo3d" id="emblem" role="button" tabindex="0" aria-label="LunaREX emblem. Move over it to tilt it, press it to spin it."><svg id="lxEmblem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-labelledby="lxT">
+<title id="lxT">LunaREX Planetary Science Lab emblem, designed by Raymundo "R@y" Olguin</title>
+<defs>
+ <radialGradient id="space" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#13285e"/><stop offset="1" stop-color="#050b20"/></radialGradient>
+ <radialGradient id="moon" cx="30%" cy="8%" r="70%"><stop offset="0" stop-color="#b9bfca"/><stop offset=".25" stop-color="#7d8493"/><stop offset=".5" stop-color="#3b4150"/><stop offset="1" stop-color="#0d1120"/></radialGradient>
+ <radialGradient id="limb" cx="50%" cy="50%" r="50%"><stop offset=".93" stop-color="#5b8cff" stop-opacity="0"/><stop offset="1" stop-color="#8fc0ff" stop-opacity=".9"/></radialGradient>
+ <radialGradient id="crat" cx="50%" cy="35%" r="60%"><stop offset="0" stop-color="#0b0f1a" stop-opacity=".75"/><stop offset="1" stop-color="#0b0f1a" stop-opacity="0"/></radialGradient>
+ <radialGradient id="earth" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#bfe0ff"/><stop offset=".35" stop-color="#3f86e8"/><stop offset="1" stop-color="#0b2a6b"/></radialGradient>
+ <radialGradient id="mars" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffb07a"/><stop offset=".5" stop-color="#d4502a"/><stop offset="1" stop-color="#6b1d0c"/></radialGradient>
+ <linearGradient id="red" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6a3d"/><stop offset=".6" stop-color="#ee3a22"/><stop offset="1" stop-color="#c9261a"/></linearGradient>
+ <clipPath id="disc"><circle cx="500" cy="500" r="388"/></clipPath>
+ <clipPath id="upper"><rect x="0" y="0" width="1000" height="760"/></clipPath>
+ <clipPath id="moonc"><circle cx="560" cy="1110" r="530"/></clipPath>
+ <path id="ringTop" d="M95.9,647.1 A430,430 0 1 1 904.1,647.1"/>
+ <mask id="draw"><path class="drawpath" d="M905.0,135.0 L894.7,148.2 L884.4,161.3 L874.1,174.4 L863.7,187.4 L853.2,200.3 L842.8,213.1 L832.3,225.8 L821.7,238.4 L811.2,250.9 L800.6,263.3 L789.9,275.6 L779.3,287.8 L768.6,299.9 L757.9,311.9 L747.1,323.8 L736.3,335.6 L725.5,347.3 L714.7,358.8 L703.8,370.2 L693.0,381.5 L682.1,392.6 L671.1,403.7 L660.2,414.6 L649.2,425.3 L638.3,435.9 L627.3,446.4 L616.3,456.8 L605.2,466.9 L594.2,477.0 L583.1,486.9 L572.1,496.6 L561.0,506.2 L549.9,515.6 L538.8,524.9 L527.7,534.0 L516.6,542.9 L505.4,551.6 L494.3,560.2 L483.2,568.6 L472.0,576.9 L460.9,584.9 L449.8,592.8 L438.6,600.4 L427.5,607.9 L416.3,615.2 L405.2,622.3 L394.1,629.2 L382.9,636.0 L371.8,642.5 L360.7,648.8 L349.6,654.9 L338.5,660.8 L327.4,666.4 L316.3,671.9 L305.2,677.1 L294.1,682.2 L283.1,687.0 L272.0,691.5 L261.0,695.9 L250.0,700.0 L245.1,701.8 L240.4,703.7 L235.9,705.5 L231.6,707.4 L227.5,709.4 L223.6,711.3 L219.9,713.3 L216.4,715.2 L213.1,717.2 L210.0,719.2 L207.0,721.2 L204.3,723.2 L201.8,725.2 L199.5,727.2 L197.3,729.2 L195.4,731.2 L193.7,733.2 L192.1,735.2 L190.8,737.2 L189.6,739.1 L188.7,741.0 L187.9,742.9 L187.3,744.8 L187.0,746.7 L186.8,748.5 L186.8,750.3 L187.0,752.0 L187.4,753.7 L188.0,755.4 L188.8,757.0 L189.7,758.6 L190.9,760.1 L192.2,761.6 L193.8,763.0 L195.5,764.4 L197.4,765.7 L199.6,766.9 L201.9,768.1 L204.4,769.2 L207.0,770.2 L209.9,771.2 L213.0,772.1 L216.2,772.9 L219.7,773.6 L223.3,774.2 L227.1,774.8 L231.1,775.3 L235.3,775.6 L239.7,775.9 L244.2,776.1 L249.0,776.2 L253.9,776.2 L259.0,776.0 L264.3,775.8 L269.8,775.5 L275.5,775.0 L281.3,774.4 L287.4,773.8 L293.6,772.9 L300.0,772.0 L306.5,771.0 L313.0,769.9 L319.5,768.8 L326.0,767.6 L332.5,766.4 L339.0,765.1 L345.4,763.8 L351.9,762.4 L358.4,761.0 L364.8,759.5 L371.3,758.0 L377.7,756.5 L384.1,754.9 L390.5,753.3 L396.9,751.6 L403.2,749.9 L409.6,748.2 L415.9,746.4 L422.2,744.6 L428.5,742.8 L434.8,740.9 L441.0,739.0 L447.2,737.1 L453.4,735.1 L459.6,733.2 L465.7,731.1 L471.9,729.1 L477.9,727.1 L484.0,725.0 L490.0,722.9 L496.0,720.8 L501.9,718.6 L507.8,716.4 L513.7,714.3 L519.6,712.1 L525.4,709.9 L531.1,707.6 L536.8,705.4 L542.5,703.2 L548.1,700.9 L553.7,698.6 L559.3,696.3 L564.8,694.0 L570.2,691.8 L575.6,689.5 L581.0,687.1 L586.3,684.8 L591.5,682.5 L596.7,680.2 L601.9,677.9 L606.9,675.6 L612.0,673.3 L616.9,671.0 L621.8,668.7 L626.7,666.4 L631.5,664.1 L636.2,661.8 L640.9,659.5 L645.5,657.3 L650.0,655.0" fill="none" stroke="#fff" stroke-width="60" stroke-linecap="round" pathLength="1"/></mask>
+</defs>
+<style>
+ .tw{animation:tw 3.6s ease-in-out infinite}
+ @keyframes tw{50%{opacity:.25}}
+ .drawpath{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.2s .4s cubic-bezier(.6,.1,.2,1) forwards}
+ @keyframes draw{to{stroke-dashoffset:0}}
+ @media (prefers-reduced-motion:reduce){.tw{animation:none}.drawpath{animation:none;stroke-dashoffset:0}}
+ .rt{font:600 33px "Outfit","Inter","DejaVu Sans",sans-serif;letter-spacing:5px;fill:#fff}
+ .wm{font:600 112px "Inter","DejaVu Sans",sans-serif;fill:#fff}
+ .sub{font:500 25px "Inter","DejaVu Sans",sans-serif;letter-spacing:13px;fill:#d8e2ff}
+ .bt{font:600 23px "Inter","DejaVu Sans",sans-serif;letter-spacing:3px;fill:#e6ecff}
+</style>
+<circle cx="500" cy="500" r="492" fill="#fff"/>
+<circle cx="500" cy="34" r="13" fill="none" stroke="#fff" stroke-width="7"/>
+<circle cx="500" cy="966" r="13" fill="none" stroke="#fff" stroke-width="7"/>
+<circle cx="500" cy="500" r="474" fill="#0a1a46"/>
+<text class="rt"><textPath href="#ringTop" startOffset="50%" text-anchor="middle">MULTIPLANETARY • IMMERSIVE • VISUALIZATION</textPath></text>
+<path d="M307.5,862.0 A410,410 0 0 1 99.0,414.8" fill="none" stroke="#ee3a22" stroke-width="9" stroke-linecap="round"/>
+<path d="M901.0,414.8 A410,410 0 0 1 692.5,862.0" fill="none" stroke="#ee3a22" stroke-width="9" stroke-linecap="round"/>
+<circle cx="500" cy="500" r="391" fill="none" stroke="#2a63d8" stroke-width="8"/>
+<g clip-path="url(#disc)">
+ <rect width="1000" height="1000" fill="url(#space)"/>
+ <circle class="tw" style="animation-delay:3.9s" cx="431" cy="327" r="2.1" fill="#fff"/><circle class="tw" style="animation-delay:2.9s" cx="282" cy="220" r="1.0" fill="#fff"/><circle class="tw" style="animation-delay:3.6s" cx="702" cy="227" r="2.0" fill="#fff"/><circle class="tw" style="animation-delay:3.9s" cx="604" cy="307" r="1.6" fill="#fff"/><circle class="tw" style="animation-delay:0.5s" cx="179" cy="549" r="1.7" fill="#fff"/><circle class="tw" style="animation-delay:2.1s" cx="786" cy="339" r="2.0" fill="#fff"/><circle class="tw" style="animation-delay:3.3s" cx="309" cy="268" r="1.2" fill="#fff"/><circle class="tw" style="animation-delay:1.0s" cx="557" cy="271" r="1.4" fill="#fff"/><circle class="tw" style="animation-delay:0.5s" cx="771" cy="308" r="1.4" fill="#fff"/><circle class="tw" style="animation-delay:2.3s" cx="767" cy="334" r="2.1" fill="#fff"/><circle class="tw" style="animation-delay:2.0s" cx="521" cy="374" r="0.8" fill="#fff"/><circle class="tw" style="animation-delay:1.8s" cx="291" cy="172" r="1.9" fill="#fff"/><circle class="tw" style="animation-delay:0.7s" cx="483" cy="453" r="1.6" fill="#fff"/><circle class="tw" style="animation-delay:1.3s" cx="512" cy="387" r="1.9" fill="#fff"/><circle class="tw" style="animation-delay:0.4s" cx="540" cy="267" r="1.2" fill="#fff"/><circle class="tw" style="animation-delay:3.1s" cx="505" cy="389" r="1.9" fill="#fff"/><circle class="tw" style="animation-delay:3.6s" cx="463" cy="409" r="1.5" fill="#fff"/><circle class="tw" style="animation-delay:2.0s" cx="627" cy="346" r="1.5" fill="#fff"/><circle class="tw" style="animation-delay:1.9s" cx="791" cy="443" r="2.0" fill="#fff"/><circle class="tw" style="animation-delay:3.8s" cx="341" cy="388" r="2.1" fill="#fff"/><circle class="tw" style="animation-delay:3.4s" cx="261" cy="217" r="1.4" fill="#fff"/><circle class="tw" style="animation-delay:0.3s" cx="329" cy="199" r="1.7" fill="#fff"/><circle class="tw" style="animation-delay:3.1s" cx="762" cy="230" r="1.8" fill="#fff"/><circle class="tw" style="animation-delay:2.6s" cx="264" cy="514" r="2.2" fill="#fff"/><circle class="tw" style="animation-delay:0.9s" cx="799" cy="325" r="1.5" fill="#fff"/><circle class="tw" style="animation-delay:4.0s" cx="719" cy="233" r="1.4" fill="#fff"/><circle class="tw" style="animation-delay:2.1s" cx="394" cy="246" r="1.2" fill="#fff"/><circle class="tw" style="animation-delay:2.9s" cx="183" cy="386" r="1.4" fill="#fff"/><circle class="tw" style="animation-delay:0.1s" cx="389" cy="413" r="1.5" fill="#fff"/><circle class="tw" style="animation-delay:0.3s" cx="820" cy="477" r="2.2" fill="#fff"/><circle class="tw" style="animation-delay:0.4s" cx="345" cy="185" r="1.9" fill="#fff"/><circle class="tw" style="animation-delay:1.1s" cx="256" cy="335" r="2.1" fill="#fff"/><circle class="tw" style="animation-delay:3.3s" cx="341" cy="228" r="2.1" fill="#fff"/><circle class="tw" style="animation-delay:2.3s" cx="632" cy="205" r="0.9" fill="#fff"/><circle class="tw" style="animation-delay:2.8s" cx="451" cy="198" r="2.1" fill="#fff"/><circle class="tw" style="animation-delay:2.5s" cx="699" cy="203" r="2.0" fill="#fff"/><circle class="tw" style="animation-delay:0.3s" cx="739" cy="347" r="1.3" fill="#fff"/><circle class="tw" style="animation-delay:2.2s" cx="782" cy="274" r="1.0" fill="#fff"/><circle class="tw" style="animation-delay:2.1s" cx="327" cy="213" r="1.0" fill="#fff"/><circle class="tw" style="animation-delay:0.2s" cx="303" cy="292" r="1.2" fill="#fff"/>
+ <path class="tw" d="M500,189 L503.52,201.48 L516,205 L503.52,208.52 L500,221 L496.48,208.52 L484,205 L496.48,201.48Z" fill="#fff"/><path class="tw" d="M445,232 L446.76,238.24 L453,240 L446.76,241.76 L445,248 L443.24,241.76 L437,240 L443.24,238.24Z" fill="#fff"/><path class="tw" d="M570,218 L572.2,225.8 L580,228 L572.2,230.2 L570,238 L567.8,230.2 L560,228 L567.8,225.8Z" fill="#fff"/><path class="tw" d="M330,321 L331.98,328.02 L339,330 L331.98,331.98 L330,339 L328.02,331.98 L321,330 L328.02,328.02Z" fill="#fff"/><path class="tw" d="M690,282 L691.76,288.24 L698,290 L691.76,291.76 L690,298 L688.24,291.76 L682,290 L688.24,288.24Z" fill="#fff"/><path class="tw" d="M745,421 L746.98,428.02 L754,430 L746.98,431.98 L745,439 L743.02,431.98 L736,430 L743.02,428.02Z" fill="#fff"/>
+ <path d="M300,420 Q500,210 700,330" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="3" id="orbit"/>
+ <path d="M700,330 Q760,370 770,440" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>
+ <circle cx="500" cy="300" r="44" fill="url(#earth)"/>
+ <path d="M478,286 q10,-14 24,-6 q6,10 -6,16 q-10,2 -18,-10z M508,312 q12,-4 18,6 q-6,12 -18,4z" fill="#eaf4ff" opacity=".8"/>
+ <circle r="15" fill="url(#mars)">
+  <animateMotion dur="14s" repeatCount="indefinite" path="M300,420 Q500,210 700,330 Q760,370 770,440 Q760,370 700,330 Q500,210 300,420" calcMode="linear"/>
+ </circle>
+ <text class="wm" x="500" y="512" text-anchor="middle" textLength="600" lengthAdjust="spacing">LUNΛRΞX</text>
+ <text class="sub" x="506" y="560" text-anchor="middle">PLANETARY SCIENCE LAB</text>
+ <g clip-path="url(#upper)">
+  <circle cx="560" cy="1110" r="530" fill="url(#moon)"/>
+  <g clip-path="url(#moonc)"><ellipse cx="373" cy="611" rx="15.0" ry="6.3" fill="url(#crat)"/><ellipse cx="373" cy="614" rx="15.0" ry="6.3" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="177" cy="679" rx="12.4" ry="5.2" fill="url(#crat)"/><ellipse cx="177" cy="681" rx="12.4" ry="5.2" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="165" cy="674" rx="4.8" ry="2.0" fill="url(#crat)"/><ellipse cx="165" cy="675" rx="4.8" ry="2.0" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="458" cy="597" rx="4.5" ry="1.9" fill="url(#crat)"/><ellipse cx="458" cy="598" rx="4.5" ry="1.9" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="451" cy="730" rx="7.9" ry="3.3" fill="url(#crat)"/><ellipse cx="451" cy="731" rx="7.9" ry="3.3" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="294" cy="695" rx="27.2" ry="11.4" fill="url(#crat)"/><ellipse cx="294" cy="700" rx="27.2" ry="11.4" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="570" cy="654" rx="24.5" ry="10.3" fill="url(#crat)"/><ellipse cx="570" cy="659" rx="24.5" ry="10.3" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="156" cy="735" rx="12.6" ry="5.3" fill="url(#crat)"/><ellipse cx="156" cy="737" rx="12.6" ry="5.3" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="233" cy="606" rx="8.6" ry="3.6" fill="url(#crat)"/><ellipse cx="233" cy="607" rx="8.6" ry="3.6" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="757" cy="617" rx="14.0" ry="5.9" fill="url(#crat)"/><ellipse cx="757" cy="619" rx="14.0" ry="5.9" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="618" cy="650" rx="15.2" ry="6.4" fill="url(#crat)"/><ellipse cx="618" cy="653" rx="15.2" ry="6.4" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="169" cy="595" rx="6.5" ry="2.7" fill="url(#crat)"/><ellipse cx="169" cy="597" rx="6.5" ry="2.7" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="651" cy="660" rx="10.6" ry="4.4" fill="url(#crat)"/><ellipse cx="651" cy="662" rx="10.6" ry="4.4" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="577" cy="664" rx="10.4" ry="4.4" fill="url(#crat)"/><ellipse cx="577" cy="666" rx="10.4" ry="4.4" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="740" cy="707" rx="10.5" ry="4.4" fill="url(#crat)"/><ellipse cx="740" cy="709" rx="10.5" ry="4.4" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="568" cy="677" rx="24.1" ry="10.1" fill="url(#crat)"/><ellipse cx="568" cy="681" rx="24.1" ry="10.1" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="689" cy="635" rx="23.0" ry="9.7" fill="url(#crat)"/><ellipse cx="689" cy="640" rx="23.0" ry="9.7" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="212" cy="658" rx="20.1" ry="8.4" fill="url(#crat)"/><ellipse cx="212" cy="662" rx="20.1" ry="8.4" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="239" cy="671" rx="4.8" ry="2.0" fill="url(#crat)"/><ellipse cx="239" cy="671" rx="4.8" ry="2.0" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="641" cy="719" rx="19.4" ry="8.1" fill="url(#crat)"/><ellipse cx="641" cy="722" rx="19.4" ry="8.1" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="803" cy="640" rx="17.6" ry="7.4" fill="url(#crat)"/><ellipse cx="803" cy="643" rx="17.6" ry="7.4" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="584" cy="686" rx="14.9" ry="6.2" fill="url(#crat)"/><ellipse cx="584" cy="689" rx="14.9" ry="6.2" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="775" cy="750" rx="18.3" ry="7.7" fill="url(#crat)"/><ellipse cx="775" cy="754" rx="18.3" ry="7.7" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="638" cy="596" rx="14.9" ry="6.3" fill="url(#crat)"/><ellipse cx="638" cy="598" rx="14.9" ry="6.3" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="625" cy="759" rx="28.7" ry="12.1" fill="url(#crat)"/><ellipse cx="625" cy="764" rx="28.7" ry="12.1" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="342" cy="653" rx="17.8" ry="7.5" fill="url(#crat)"/><ellipse cx="342" cy="656" rx="17.8" ry="7.5" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="138" cy="666" rx="7.5" ry="3.2" fill="url(#crat)"/><ellipse cx="138" cy="667" rx="7.5" ry="3.2" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="211" cy="595" rx="16.0" ry="6.7" fill="url(#crat)"/><ellipse cx="211" cy="598" rx="16.0" ry="6.7" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="221" cy="628" rx="11.0" ry="4.6" fill="url(#crat)"/><ellipse cx="221" cy="630" rx="11.0" ry="4.6" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="800" cy="599" rx="10.8" ry="4.5" fill="url(#crat)"/><ellipse cx="800" cy="601" rx="10.8" ry="4.5" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="549" cy="740" rx="27.3" ry="11.5" fill="url(#crat)"/><ellipse cx="549" cy="745" rx="27.3" ry="11.5" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="794" cy="634" rx="11.7" ry="4.9" fill="url(#crat)"/><ellipse cx="794" cy="636" rx="11.7" ry="4.9" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="400" cy="740" rx="31.1" ry="13.1" fill="url(#crat)"/><ellipse cx="400" cy="745" rx="31.1" ry="13.1" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="238" cy="616" rx="7.5" ry="3.2" fill="url(#crat)"/><ellipse cx="238" cy="617" rx="7.5" ry="3.2" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="302" cy="670" rx="17.1" ry="7.2" fill="url(#crat)"/><ellipse cx="302" cy="673" rx="17.1" ry="7.2" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="325" cy="586" rx="9.7" ry="4.1" fill="url(#crat)"/><ellipse cx="325" cy="587" rx="9.7" ry="4.1" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="408" cy="684" rx="26.4" ry="11.1" fill="url(#crat)"/><ellipse cx="408" cy="689" rx="26.4" ry="11.1" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="659" cy="675" rx="18.1" ry="7.6" fill="url(#crat)"/><ellipse cx="659" cy="678" rx="18.1" ry="7.6" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="647" cy="594" rx="18.2" ry="7.7" fill="url(#crat)"/><ellipse cx="647" cy="598" rx="18.2" ry="7.7" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="728" cy="738" rx="26.6" ry="11.2" fill="url(#crat)"/><ellipse cx="728" cy="743" rx="26.6" ry="11.2" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="426" cy="655" rx="5.9" ry="2.5" fill="url(#crat)"/><ellipse cx="426" cy="656" rx="5.9" ry="2.5" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="615" cy="596" rx="4.1" ry="1.7" fill="url(#crat)"/><ellipse cx="615" cy="597" rx="4.1" ry="1.7" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="283" cy="613" rx="9.4" ry="4.0" fill="url(#crat)"/><ellipse cx="283" cy="615" rx="9.4" ry="4.0" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="161" cy="585" rx="5.3" ry="2.2" fill="url(#crat)"/><ellipse cx="161" cy="586" rx="5.3" ry="2.2" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="199" cy="649" rx="4.1" ry="1.7" fill="url(#crat)"/><ellipse cx="199" cy="649" rx="4.1" ry="1.7" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="802" cy="692" rx="7.7" ry="3.2" fill="url(#crat)"/><ellipse cx="802" cy="694" rx="7.7" ry="3.2" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="317" cy="646" rx="11.1" ry="4.7" fill="url(#crat)"/><ellipse cx="317" cy="648" rx="11.1" ry="4.7" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="216" cy="734" rx="31.6" ry="13.3" fill="url(#crat)"/><ellipse cx="216" cy="739" rx="31.6" ry="13.3" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="483" cy="670" rx="5.8" ry="2.4" fill="url(#crat)"/><ellipse cx="483" cy="671" rx="5.8" ry="2.4" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="200" cy="645" rx="9.0" ry="3.8" fill="url(#crat)"/><ellipse cx="200" cy="647" rx="9.0" ry="3.8" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="767" cy="613" rx="3.6" ry="1.5" fill="url(#crat)"/><ellipse cx="767" cy="614" rx="3.6" ry="1.5" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="862" cy="677" rx="7.3" ry="3.1" fill="url(#crat)"/><ellipse cx="862" cy="679" rx="7.3" ry="3.1" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="544" cy="590" rx="11.7" ry="4.9" fill="url(#crat)"/><ellipse cx="544" cy="592" rx="11.7" ry="4.9" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="883" cy="736" rx="23.7" ry="9.9" fill="url(#crat)"/><ellipse cx="883" cy="740" rx="23.7" ry="9.9" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="324" cy="649" rx="7.1" ry="3.0" fill="url(#crat)"/><ellipse cx="324" cy="650" rx="7.1" ry="3.0" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="722" cy="678" rx="22.0" ry="9.2" fill="url(#crat)"/><ellipse cx="722" cy="682" rx="22.0" ry="9.2" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="377" cy="624" rx="18.8" ry="7.9" fill="url(#crat)"/><ellipse cx="377" cy="627" rx="18.8" ry="7.9" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="888" cy="734" rx="26.5" ry="11.1" fill="url(#crat)"/><ellipse cx="888" cy="739" rx="26.5" ry="11.1" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="758" cy="714" rx="10.3" ry="4.3" fill="url(#crat)"/><ellipse cx="758" cy="716" rx="10.3" ry="4.3" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="524" cy="647" rx="4.2" ry="1.8" fill="url(#crat)"/><ellipse cx="524" cy="648" rx="4.2" ry="1.8" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="142" cy="634" rx="8.6" ry="3.6" fill="url(#crat)"/><ellipse cx="142" cy="635" rx="8.6" ry="3.6" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="660" cy="752" rx="17.6" ry="7.4" fill="url(#crat)"/><ellipse cx="660" cy="756" rx="17.6" ry="7.4" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="851" cy="758" rx="32.5" ry="13.7" fill="url(#crat)"/><ellipse cx="851" cy="764" rx="32.5" ry="13.7" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="404" cy="624" rx="7.6" ry="3.2" fill="url(#crat)"/><ellipse cx="404" cy="625" rx="7.6" ry="3.2" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="273" cy="621" rx="15.1" ry="6.3" fill="url(#crat)"/><ellipse cx="273" cy="623" rx="15.1" ry="6.3" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="822" cy="732" rx="17.6" ry="7.4" fill="url(#crat)"/><ellipse cx="822" cy="735" rx="17.6" ry="7.4" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="629" cy="725" rx="6.8" ry="2.9" fill="url(#crat)"/><ellipse cx="629" cy="726" rx="6.8" ry="2.9" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="635" cy="744" rx="26.6" ry="11.2" fill="url(#crat)"/><ellipse cx="635" cy="749" rx="26.6" ry="11.2" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="705" cy="669" rx="7.9" ry="3.3" fill="url(#crat)"/><ellipse cx="705" cy="670" rx="7.9" ry="3.3" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/><ellipse cx="736" cy="643" rx="20.0" ry="8.4" fill="url(#crat)"/><ellipse cx="736" cy="647" rx="20.0" ry="8.4" fill="none" stroke="#e9edf5" stroke-opacity=".35" stroke-width="1.4"/></g>
+  <circle cx="560" cy="1110" r="530" fill="url(#limb)"/>
+ </g>
+ <rect x="0" y="760" width="1000" height="240" fill="#0a1a46"/>
+ <line x1="110" y1="760" x2="890" y2="760" stroke="#2a63d8" stroke-width="3"/>
+ <text class="bt" x="500" y="808" text-anchor="middle">DATA • TECHNOLOGY • DISCOVERY</text>
+ <line x1="340" y1="845" x2="430" y2="845" stroke="#c8d4ff" stroke-width="2"/>
+ <line x1="570" y1="845" x2="660" y2="845" stroke="#c8d4ff" stroke-width="2"/>
+ <text class="bt" x="500" y="853" text-anchor="middle">EST 2025</text>
+</g>
+<path class="tw" d="M500,896 L505.28,914.72 L524,920 L505.28,925.28 L500,944 L494.72,925.28 L476,920 L494.72,914.72Z" fill="#fff"/>
+<g mask="url(#draw)">
+ <path d="M904.4,134.5 L893.7,147.4 L883.1,160.3 L872.5,173.1 L861.8,185.9 L851.2,198.6 L840.5,211.1 L829.7,223.6 L819.0,236.1 L808.2,248.4 L797.4,260.6 L786.6,272.7 L775.8,284.7 L764.9,296.7 L754.0,308.5 L743.1,320.2 L732.1,331.7 L721.2,343.2 L710.2,354.5 L699.2,365.7 L688.2,376.8 L677.1,387.8 L666.1,398.6 L655.0,409.3 L643.9,419.9 L632.8,430.3 L621.7,440.6 L610.6,450.7 L599.5,460.7 L588.3,470.5 L577.2,480.2 L566.0,489.7 L554.9,499.1 L543.7,508.3 L532.5,517.3 L521.4,526.2 L510.2,534.9 L499.0,543.4 L487.9,551.8 L476.7,559.9 L465.5,567.9 L454.4,575.7 L443.2,583.4 L432.1,590.8 L420.9,598.0 L409.8,605.1 L398.7,612.0 L387.5,618.6 L376.5,625.1 L365.4,631.3 L354.3,637.4 L343.3,643.2 L332.2,648.8 L321.2,654.2 L310.2,659.4 L299.3,664.4 L288.4,669.1 L277.4,673.7 L266.6,678.0 L255.7,682.1 L244.9,685.9 L239.8,687.9 L234.8,689.9 L230.1,691.9 L225.5,694.0 L221.1,696.2 L216.9,698.3 L212.9,700.5 L209.1,702.7 L205.5,705.0 L202.0,707.3 L198.8,709.6 L195.7,712.0 L192.8,714.4 L190.0,716.8 L187.5,719.3 L185.1,721.8 L183.0,724.4 L181.0,727.1 L179.2,729.8 L177.6,732.6 L176.3,735.5 L175.1,738.5 L174.3,741.5 L173.7,744.7 L173.5,747.9 L173.5,751.1 L174.0,754.3 L174.8,757.4 L175.9,760.4 L177.4,763.3 L179.1,765.9 L181.0,768.4 L183.2,770.7 L185.6,772.7 L188.1,774.6 L190.7,776.3 L193.6,777.9 L196.5,779.3 L199.6,780.6 L202.9,781.8 L206.3,782.9 L209.8,783.9 L213.5,784.7 L217.4,785.5 L221.4,786.1 L225.6,786.6 L229.9,787.1 L234.4,787.4 L239.1,787.6 L243.9,787.8 L248.9,787.8 L254.1,787.7 L259.4,787.5 L264.9,787.2 L270.6,786.8 L276.5,786.2 L282.5,785.6 L288.7,784.8 L295.1,783.9 L301.7,782.9 L308.2,781.7 L314.8,780.4 L321.3,779.1 L327.9,777.7 L334.4,776.3 L340.9,774.8 L347.4,773.3 L353.9,771.8 L360.4,770.2 L366.9,768.5 L373.3,766.8 L379.8,765.1 L386.2,763.4 L392.6,761.5 L399.0,759.7 L405.4,757.8 L411.7,755.9 L418.1,754.0 L424.4,752.0 L430.6,750.0 L436.9,747.9 L443.1,745.9 L449.3,743.7 L455.5,741.6 L461.7,739.5 L467.8,737.3 L473.9,735.1 L479.9,732.8 L485.9,730.6 L491.9,728.3 L497.9,726.0 L503.8,723.7 L509.7,721.4 L515.5,719.0 L521.3,716.6 L527.0,714.3 L532.8,711.9 L538.4,709.4 L544.1,707.0 L549.6,704.6 L555.2,702.2 L560.7,699.7 L566.1,697.3 L571.5,694.8 L576.9,692.3 L582.1,689.9 L587.4,687.4 L592.6,684.9 L597.7,682.4 L602.8,680.0 L607.8,677.5 L612.8,675.0 L617.7,672.5 L622.5,670.1 L627.3,667.6 L632.0,665.2 L636.7,662.7 L641.2,660.3 L645.8,657.9 L650.2,655.4 L649.8,654.6 L645.2,656.7 L640.5,658.8 L635.8,660.9 L631.0,663.0 L626.1,665.1 L621.2,667.3 L616.2,669.4 L611.2,671.6 L606.1,673.7 L600.9,675.9 L595.7,678.0 L590.5,680.2 L585.2,682.3 L579.8,684.4 L574.4,686.6 L568.9,688.7 L563.4,690.8 L557.9,693.0 L552.3,695.1 L546.6,697.2 L541.0,699.3 L535.2,701.4 L529.5,703.4 L523.7,705.5 L517.8,707.5 L512.0,709.5 L506.0,711.5 L500.1,713.5 L494.1,715.5 L488.1,717.5 L482.0,719.4 L476.0,721.3 L469.9,723.2 L463.7,725.0 L457.6,726.9 L451.4,728.7 L445.2,730.4 L438.9,732.2 L432.7,733.9 L426.4,735.6 L420.1,737.2 L413.8,738.9 L407.5,740.4 L401.1,742.0 L394.7,743.5 L388.4,745.0 L382.0,746.4 L375.6,747.8 L369.2,749.2 L362.7,750.5 L356.3,751.8 L349.9,753.0 L343.4,754.2 L337.0,755.3 L330.6,756.4 L324.1,757.5 L317.7,758.5 L311.2,759.4 L304.8,760.3 L298.3,761.1 L292.1,762.0 L286.0,762.7 L280.1,763.3 L274.5,763.8 L269.0,764.2 L263.7,764.4 L258.6,764.6 L253.7,764.6 L249.0,764.6 L244.5,764.4 L240.3,764.2 L236.2,763.9 L232.3,763.5 L228.6,763.0 L225.2,762.4 L221.9,761.8 L218.9,761.1 L216.1,760.3 L213.5,759.5 L211.2,758.6 L209.1,757.7 L207.2,756.8 L205.5,755.9 L204.1,755.0 L203.0,754.1 L202.0,753.3 L201.3,752.5 L200.7,751.8 L200.4,751.2 L200.1,750.7 L200.0,750.3 L200.0,750.0 L200.0,749.7 L200.0,749.4 L200.1,749.1 L200.2,748.6 L200.4,748.1 L200.7,747.4 L201.1,746.6 L201.6,745.6 L202.4,744.6 L203.3,743.4 L204.4,742.1 L205.7,740.7 L207.2,739.2 L208.9,737.7 L210.8,736.1 L213.0,734.5 L215.3,732.8 L217.9,731.2 L220.7,729.5 L223.7,727.7 L226.9,726.0 L230.3,724.3 L233.9,722.6 L237.7,720.8 L241.7,719.1 L246.0,717.4 L250.4,715.8 L255.1,714.1 L266.3,709.7 L277.5,705.1 L288.7,700.2 L299.9,695.2 L311.1,689.9 L322.3,684.4 L333.5,678.6 L344.7,672.7 L355.8,666.5 L367.0,660.2 L378.2,653.6 L389.4,646.9 L400.6,639.9 L411.7,632.7 L422.9,625.4 L434.0,617.8 L445.2,610.1 L456.3,602.2 L467.4,594.1 L478.6,585.8 L489.7,577.3 L500.8,568.7 L511.8,559.9 L522.9,550.9 L534.0,541.7 L545.0,532.4 L556.1,522.9 L567.1,513.3 L578.1,503.5 L589.1,493.6 L600.0,483.5 L611.0,473.2 L621.9,462.8 L632.8,452.3 L643.7,441.6 L654.5,430.8 L665.4,419.8 L676.2,408.7 L687.0,397.5 L697.7,386.1 L708.5,374.6 L719.2,363.0 L729.9,351.3 L740.5,339.5 L751.1,327.5 L761.7,315.4 L772.3,303.2 L782.8,290.9 L793.3,278.5 L803.7,266.0 L814.1,253.4 L824.5,240.7 L834.8,227.9 L845.1,215.0 L855.3,202.0 L865.5,188.9 L875.7,175.7 L885.7,162.4 L895.7,149.0 L905.6,135.5Z" fill="url(#red)"/>
+ <path d="M255.1,714.1 L250.4,715.8 L246.0,717.4 L241.7,719.1 L237.7,720.8 L233.9,722.6 L230.3,724.3 L226.9,726.0 L223.7,727.7 L220.7,729.5 L217.9,731.2 L215.3,732.8 L213.0,734.5 L210.8,736.1 L208.9,737.7 L207.2,739.2 L205.7,740.7 L204.4,742.1 L203.3,743.4 L202.4,744.6 L201.6,745.6 L201.1,746.6 L200.7,747.4 L200.4,748.1 L200.2,748.6 L200.1,749.1 L200.0,749.4 L200.0,749.7 L200.0,750.0 L200.0,750.3 L200.1,750.7 L200.4,751.2 L200.7,751.8 L201.3,752.5 L202.0,753.3 L203.0,754.1 L204.1,755.0 L205.5,755.9 L207.2,756.8 L209.1,757.7 L211.2,758.6 L213.5,759.5 L216.1,760.3 L218.9,761.1 L221.9,761.8 L225.2,762.4 L228.6,763.0 L232.3,763.5 L236.2,763.9 L240.3,764.2 L244.5,764.4 L249.0,764.6 L253.7,764.6 L258.6,764.6 L263.7,764.4 L269.0,764.2 L274.5,763.8 L280.1,763.3 L286.0,762.7 L292.1,762.0 L298.3,761.1 L304.8,760.3 L311.2,759.4 L317.7,758.5 L324.1,757.5 L330.6,756.4 L337.0,755.3 L343.4,754.2 L349.9,753.0 L356.3,751.8 L362.7,750.5 L369.2,749.2 L375.6,747.8 L382.0,746.4 L388.4,745.0 L394.7,743.5 L401.1,742.0 L407.5,740.4 L413.8,738.9 L420.1,737.2 L426.4,735.6 L432.7,733.9 L438.9,732.2 L445.2,730.4 L451.4,728.7 L457.6,726.9 L463.7,725.0 L469.9,723.2 L476.0,721.3 L482.0,719.4" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".95"/>
+</g>
+</svg></div>
+    <div>
+      <p class="measure big">Every scene starts as photons on an orbital detector and ends as a true-scale world in a headset, on a phone or on film. Between those ends sits engineering: calibration, stereo photogrammetry, mesh reconstruction and real-time rendering, each stage checked against the source data.</p>
+      <p class="measure muted">Mars comes from HiRISE<sup class="cite" data-refs="mcewen2007"></sup>, CTX<sup class="cite" data-refs="malin2007"></sup> and CaSSIS<sup class="cite" data-refs="thomas2017"></sup>. The Moon comes from the public LROC archive<sup class="cite" data-refs="robinson2010"></sup>. Europa comes from Galileo imagery<sup class="cite" data-refs="belton1992"></sup> and procedural terrain models built for roughness studies<sup class="cite" data-refs="steinbrugge2020 shepard2001"></sup>.</p>
+      <dl class="stats">
+        <div><dt>published HiRISE DTMs</dt><dd>40</dd></div>
+        <div><dt>planetary and Earth data pipelines</dt><dd>7</dd></div>
+        <div><dt>worlds: Moon, Mars, Europa</dt><dd>3</dd></div>
+        <div><dt>true scale, no vertical exaggeration</dt><dd>1.0×</dd></div>
+      </dl>
+    </div>
+  </div>
+</div></section>
+
+<!-- interlude flight 1 -->
+<section class="flight dark" id="f1" aria-label="Flight over the Cavi Angusti south polar terrain">
+  <div class="stick">
+    <div class="poster" hidden style="background-image:url(assets/data/thumbs/cavil-angusti-south-polar-2834e-765s.jpg)"></div>
+    <canvas aria-hidden="true"></canvas>
+    <div class="read" aria-hidden="true"><b class="alt-read">0 m</b><span>above the ground</span></div>
+    <div class="cap"><h2>Cavi Angusti, south polar</h2><p class="collar" data-move="Spiral descent over">Spiral descent over a HiRISE DTM window, true scale. NASA/JPL/University of Arizona.</p></div>
+  </div>
+</section>
+
+<!-- ============================================================ 2 PIPELINE -->
+<section class="chapter" id="pipeline"><div class="wrap">
+  <header class="ch-head"><span class="ch-num" aria-hidden="true">2</span><h2>The instrument chain</h2><p>Four stages, one direction: from the photon that hits the detector to the planet you can walk on.</p></header>
+  <div class="stepper">
+    <ol class="steps" id="steps"></ol>
+    <div class="stepview">
+      <div class="fig"><canvas id="stepFig" aria-hidden="true"></canvas></div>
+      <div id="stepTxt" aria-live="polite"></div>
+      <div class="stepnav"><button type="button" class="btn line" id="prevStep">Previous</button><button type="button" class="btn line" id="nextStep">Next step</button></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============================================================ 3 WORLDS -->
+<section class="chapter dark space" id="worlds"><div class="wrap">
+  <header class="ch-head"><span class="ch-num" aria-hidden="true">3</span><h2>Worlds in the studio</h2><p>Built on public archives from NASA, ESA and USGS missions. The three globes are drawn at their true relative sizes<sup class="cite" data-refs="archinal2018"></sup>.</p></header>
+  <div class="worlds">
+    <article class="world" style="--r:.5126"><div class="orb"><canvas class="globe3d" data-body="moon" aria-hidden="true"></canvas></div><h3>Moon</h3><p class="src">LROC NAC, LROC WAC</p><p>Lunar terrain reconstruction from the public LROC archive, with emission angles resolved for every stereo pair<sup class="cite" data-refs="robinson2010 henriksen2017"></sup>.</p><dl class="facts" data-body="moon"></dl><ul><li>NAC stereo DTMs</li><li>WAC global mosaics</li><li>Emission angle pipeline</li></ul></article>
+    <article class="world" style="--r:1"><div class="orb"><canvas class="globe3d" data-body="mars" aria-hidden="true"></canvas></div><h3>Mars</h3><p class="src">HiRISE, CTX, CaSSIS</p><p>The studio's home world: meter-scale terrain from HiRISE with regional context from CTX and CaSSIS<sup class="cite" data-refs="kirk2008 sutton2022 malin2007 thomas2017"></sup>.</p><dl class="facts" data-body="mars"></dl><ul><li>HiRISE DTMs at 1 to 2 m post spacing</li><li>CTX DTM mirror pipeline</li><li>CaSSIS stereo from ESA Trace Gas Orbiter</li></ul></article>
+    <article class="world" style="--r:.4605"><div class="orb"><canvas class="globe3d" data-body="europa" aria-hidden="true"></canvas></div><h3>Europa</h3><p class="src">Galileo, procedural models</p><p>Topographic modeling of an ice shell: ridges<sup class="cite" data-refs="head1999"></sup>, lenticulae<sup class="cite" data-refs="pappalardo1998"></sup>, chaos terrain<sup class="cite" data-refs="schmidt2011"></sup> and multi-scale roughness<sup class="cite" data-refs="steinbrugge2020 bland2021"></sup>.</p><dl class="facts" data-body="europa"></dl><ul><li>Galileo DEM mesh gallery</li><li>Procedural ridges, pits and domes</li><li>Synthetic roughness for radar studies</li></ul></article>
+  </div>
+</div></section>
+
+<!-- ============================================================ 4 LAB -->
+<section class="chapter dark console" id="lab-ch"><div class="wrap">
+  <header class="ch-head"><span class="ch-num" aria-hidden="true">4</span><h2>Terrain lab</h2><p>The instrument chain, hands on. Pick one of sixty real digital terrain models, then follow it the way the studio does: first the photon record, the orthorectified image, set out in four drawings; then the pixel record, four quantities measured or modeled from the same grid of posts.</p></header>
+  <div class="lab" id="labRoot">
+    <div class="ctl" id="dataCtl">
+      <div class="grp"><span class="lbl" id="lblWorld">World</span><div class="tabs" role="group" aria-labelledby="lblWorld"><button type="button" data-w="moon" aria-pressed="false">Moon</button><button type="button" data-w="mars" aria-pressed="true">Mars</button><button type="button" data-w="europa" aria-pressed="false">Europa</button></div></div>
+      <div class="grp"><label class="lbl" for="site">Digital terrain model</label>
+        <select id="site" class="sel"></select>
+        <div class="row"><button type="button" class="chip" id="prevSite">Previous</button><button type="button" class="chip" id="nextSite">Next</button><button type="button" class="chip" id="shuffle">Random</button></div></div>
+      <div class="grp"><label class="lbl" for="vex">Vertical exaggeration <output id="vexO" for="vex">1.0×</output></label>
+        <input id="vex" type="range" min="1" max="30" step="0.5" value="1">
+        <div class="row"><button type="button" class="chip" id="trueScale">True scale, 1.0×</button><button type="button" class="chip" id="suggested">Suggested</button></div></div>
+      <div class="grp"><label class="lbl" for="ds">Downsampling factor <output id="dsO" for="ds">2</output></label>
+        <input id="ds" type="range" min="1" max="4" step="1" value="2">
+        <p class="hint" id="dsHint"></p>
+        <div class="row"><button type="button" class="chip" id="play" aria-pressed="true">Auto-rotate perspective views</button></div></div>
+      <div class="grp wide">
+        <div class="row"><button type="button" class="chip" id="share">Share this terrain</button><button type="button" class="chip" id="resetAll">Reset settings</button></div>
+        <details class="keys"><summary>Controls for mouse, keyboard and touch</summary>
+          <dl>
+            <div><dt>Select a viewport</dt><dd>Click or tap it, or press 1 to 4 with the viewer focused</dd></div>
+            <div><dt>Orbit</dt><dd>Drag, or use the arrow keys</dd></div>
+            <div><dt>Zoom</dt><dd>Pinch, hold Ctrl or Cmd and scroll, or press + and -</dd></div>
+            <div><dt>Reset a viewport</dt><dd>Double tap or double click it, or press 0</dd></div>
+            <div><dt>Change terrain</dt><dd>The arrows beside the terrain name, or [ and ]</dd></div>
+            <div><dt>Full screen</dt><dd>The Full screen button, or F</dd></div>
+          </dl>
+          <p class="hint">Vertical swipes over a viewer always scroll the page. Your layout, Sun and downsampling settings are remembered on this device.</p>
+        </details>
+      </div>
+    </div>
+
+    <section class="stage" aria-labelledby="stA">
+      <header class="st-head"><p class="st-step">Photon</p><h3 id="stA">The orthorectified image, in four drawings</h3><p>The image with its geometry corrected by the DTM, so every pixel sits where the ground is<sup class="cite" data-refs="kirk2008 sutton2022"></sup>. Perspective and isometric show the form, the plan is the map, and the front view is the elevation drawing, level with the ground.</p></header>
+      <figure class="viewer" id="viewerA"></figure>
+      <div class="ctl ctl-row">
+        <div class="grp"><span class="lbl">Drawing in the selected viewport</span><div class="tabs wrap-tabs" data-cams role="group" aria-label="Drawing in the selected viewport"></div><p class="hint" data-camhint></p></div>
+      </div>
+    </section>
+
+    <section class="stage" aria-labelledby="stB">
+      <header class="st-head"><p class="st-step">Pixel</p><h3 id="stB">Four measurements from the same grid</h3><p>Stereo turns the image pair into one elevation per post<sup class="cite" data-refs="kirk2008 henriksen2017 bland2021"></sup>. Elevation is measured. Slope<sup class="cite" data-refs="horn1981"></sup> and shaded relief are derived from it. The thermal view is a physical model of how that relief redistributes sunlight, with cast shadows<sup class="cite" data-refs="aharonson2006 mazarico2011"></sup>; it is checked against measured temperatures in the legend. The four cameras move together, so the maps stay registered.</p></header>
+      <figure class="viewer" id="viewerB"></figure>
+      <div class="ctl ctl-row">
+        <div class="grp"><span class="lbl">Parameter in the selected viewport</span><div class="tabs wrap-tabs" data-modes role="group" aria-label="Parameter in the selected viewport"></div></div>
+        <div class="grp"><span class="lbl">Drawing, all four viewports</span><div class="tabs wrap-tabs" data-cams role="group" aria-label="Drawing, all four viewports"></div><p class="hint" data-camhint></p></div>
+        <div class="grp"><label class="lbl" for="sunAz">Sun azimuth, clockwise from image top <output id="sunAzO" for="sunAz"></output></label><input id="sunAz" type="range" min="0" max="355" step="5" value="315">
+          <label class="lbl" for="sunAlt">Sun altitude above the horizon <output id="sunAltO" for="sunAlt"></output></label><input id="sunAlt" type="range" min="5" max="90" step="5" value="30">
+          <p class="hint">The Sun drives the shaded relief, the cast shadows and the thermal model.</p></div>
+      </div>
+    </section>
+
+    <div class="info" id="siteInfo" aria-live="polite"></div>
+  </div>
+  <div class="results" id="results">
+    <div class="tabs wrap-tabs" id="chips" role="group" aria-label="Filter by region"></div>
+    <input type="search" id="dtmSearch" class="sel search" placeholder="Search terrains by name or product" aria-label="Search terrains by name or product" autocomplete="off" spellcheck="false">
+    <p class="hint" id="galCount" role="status"></p>
+    <div class="gallery" id="gallery"></div>
+  </div>
+</div></section>
+
+<!-- ============================================================ 5 FOUNDER -->
+<section class="chapter" id="founder"><div class="wrap">
+  <header class="ch-head"><span class="ch-num" aria-hidden="true">5</span><h2>Founder</h2></header>
+  <div class="fx">
+    <figure class="fx-pic"><img src="assets/img/founder.jpg" width="800" height="860" loading="lazy" alt="Raymundo &quot;R@y&quot; Olguin in a spacesuit on Mars"></figure>
+    <div class="fx-txt">
+      <p class="fx-quote">I turn orbital images into worlds you can stand on.</p>
+      <p class="fx-name">Raymundo "R@y" Olguin, founder</p>
+      <p class="fx-bio">I study electrical and computer engineering at the University of Arizona and build Mars terrain models at the HiRISE Operations Center. LunaREX is where that work leaves the lab: the Moon, Mars and Europa at true scale, for science, film and XR.</p>
+      <ul class="fx-facts">
+        <li><b>40</b><span>Mars terrain models I produced, public on uahirise.org</span></li>
+        <li><b>3</b><span>worlds mapped: Mars, the Moon and Europa, including terrain modeling for NASA's Europa Clipper</span></li>
+        <li><b>XR</b><span>every terrain ready for a VR headset, a phone in AR or a 3D printer</span></li>
+      </ul>
+      <div class="cta"><a class="btn solid" href="https://www.linkedin.com/in/rayolguin" target="_blank" rel="noopener">LinkedIn</a><a class="btn line" href="https://github.com/rayolguinm" target="_blank" rel="noopener">GitHub</a></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============================================================ 6 LINKS -->
+<section class="chapter" id="links"><div class="wrap">
+  <header class="ch-head"><span class="ch-num" aria-hidden="true">6</span><h2>Explore the work</h2></header>
+  <div class="linkgrid" id="linkgrid"></div>
+</div></section>
+<!-- ============================================================ 7 REFERENCES -->
+<section class="chapter" id="references"><div class="wrap">
+  <header class="ch-head"><span class="ch-num" aria-hidden="true">7</span><h2>References</h2><p><span id="refCount">The</span> peer-reviewed papers behind this page. Each one is cited where its instrument, method or result is used, and each record was checked against the Crossref registry.</p></header>
+  <div class="refs">
+    <section><h3>Instruments and missions</h3>
+      <p>HiRISE on Mars Reconnaissance Orbiter resolves Mars at about 0.3 m per pixel<sup class="cite" data-refs="mcewen2007 mcewen2010 zurek2007"></sup>, the Context Camera gives the regional setting<sup class="cite" data-refs="malin2007"></sup>, CaSSIS on the ExoMars Trace Gas Orbiter adds color stereo<sup class="cite" data-refs="thomas2017"></sup> and HRSC on Mars Express maps the planet in stereo<sup class="cite" data-refs="jaumann2007"></sup>. Lunar terrain here comes from the LROC cameras<sup class="cite" data-refs="robinson2010"></sup> on Lunar Reconnaissance Orbiter<sup class="cite" data-refs="chin2007"></sup>, and Europa from the Galileo Solid-State Imager<sup class="cite" data-refs="belton1992"></sup>. Europa Clipper<sup class="cite" data-refs="pappalardo2024"></sup> carries the Europa Imaging System<sup class="cite" data-refs="turtle2024"></sup>, the REASON ice-penetrating radar<sup class="cite" data-refs="blankenship2024"></sup> and the E-THEMIS thermal imager<sup class="cite" data-refs="christensen2024"></sup>. Laser altimeters provide the control that stereo models are tied to: MOLA at Mars<sup class="cite" data-refs="smith2001"></sup> and LOLA at the Moon<sup class="cite" data-refs="smith2010"></sup>. Surface temperature is measured, not modeled, by THEMIS<sup class="cite" data-refs="christensen2004"></sup> and TES<sup class="cite" data-refs="christensen2001"></sup> at Mars and by Diviner at the Moon<sup class="cite" data-refs="paige2010"></sup>.</p>
+      <ol data-topic="inst"></ol></section>
+    <section><h3>Stereo photogrammetry and terrain models</h3>
+      <p>The HiRISE DTM method, and the expected vertical precision EP = ρ · GSD / (b/h), follow Kirk and colleagues<sup class="cite" data-refs="kirk2008 kirk2003"></sup>, with DTM quality evaluated at the rover landing sites<sup class="cite" data-refs="kirk2021"></sup>. HiRISE DTM production at the University of Arizona and its science uses are described by Sutton and colleagues<sup class="cite" data-refs="sutton2022"></sup>; LROC NAC DTMs by Henriksen and colleagues<sup class="cite" data-refs="henriksen2017"></sup>. Other routes to the same product include the Ames Stereo Pipeline<sup class="cite" data-refs="beyer2018"></sup>, large-scale cloud production<sup class="cite" data-refs="tao2018"></sup> and the HRSC global models<sup class="cite" data-refs="gwinner2010"></sup>. Lunar global terrain models set the context for NAC windows<sup class="cite" data-refs="scholten2012 barker2016"></sup>. The Europa DTMs in the lab are the USGS photogrammetrically controlled set<sup class="cite" data-refs="bland2021"></sup> and the Galileo stereo set<sup class="cite" data-refs="steinbrugge2020"></sup>. Two algorithms that underlie much of modern stereo are semi-global matching<sup class="cite" data-refs="hirschmuller2008"></sup> and bundle adjustment<sup class="cite" data-refs="triggs2000"></sup>. Body radii and coordinate systems are the IAU values<sup class="cite" data-refs="archinal2018"></sup>, within a planetary spatial data infrastructure<sup class="cite" data-refs="laura2017"></sup>.</p>
+      <ol data-topic="stereo"></ol></section>
+    <section><h3>Slope, roughness and illumination</h3>
+      <p>Slope is computed with Horn's 3 by 3 finite-difference operator<sup class="cite" data-refs="horn1981"></sup>; other operators give measurably different slopes on the same grid<sup class="cite" data-refs="zevenbergen1987 jones1998"></sup>. Slope and roughness depend on the baseline over which they are measured, so the lab always states its post spacing<sup class="cite" data-refs="shepard2001 kreslavsky2000 aharonson2001 rosenburg2011"></sup>. Europa's slopes and roughness from Galileo stereo set the scale of the synthetic terrains<sup class="cite" data-refs="schenk2009 steinbrugge2020"></sup>, and meter-scale slopes from HiRISE DTMs are what landing-site selection relies on<sup class="cite" data-refs="golombek2012"></sup>. The procedural roughness models use fractal subdivision<sup class="cite" data-refs="fournier1982"></sup> and gradient noise<sup class="cite" data-refs="perlin1985"></sup>. Cast shadows are found with a horizon test on the DTM, as in lunar polar illumination studies<sup class="cite" data-refs="mazarico2011"></sup>.</p>
+      <ol data-topic="terrain"></ol></section>
+    <section><h3>Color, shading and photometry</h3>
+      <p>The classic rainbow color map hides and invents features because its lightness is not ordered<sup class="cite" data-refs="borland2007 rogowitz1998 crameri2020"></sup>; luminance is what carries form<sup class="cite" data-refs="ware1988"></sup>, and color maps differ measurably in how accurately they are read<sup class="cite" data-refs="liu2018"></sup>. The LunaREX altimetry ramp keeps the familiar hue order and makes lightness rise steadily. The Moon globe is lit with a Lommel-Seeliger law and the other two with Lambert shading, the two terms that planetary photometric functions combine<sup class="cite" data-refs="mcewen1991 hapke1981"></sup>; resolved photometric parameters of the Moon come from LROC WAC<sup class="cite" data-refs="sato2014"></sup>.</p>
+      <ol data-topic="color"></ol></section>
+    <section><h3>Thermal model and its checks</h3>
+      <p>The thermal view is direct-beam radiative equilibrium on each facet, the slope term of rough-terrain thermal models<sup class="cite" data-refs="aharonson2006 spencer1990"></sup>, with the solar constant from the IAU nominal value<sup class="cite" data-refs="prsa2016"></sup> and its measurement<sup class="cite" data-refs="kopp2011"></sup>. It has no thermal inertia, which real surfaces do<sup class="cite" data-refs="kieffer1977 mellon2000 putzig2007 kieffer2013"></sup>, so it is a ceiling on daytime temperature. The lunar parameters are those of the Diviner thermal models<sup class="cite" data-refs="vasavada2012 hayne2017"></sup>, and the model's 386 K ceiling sits at the 387 to 397 K equatorial maximum Diviner measures<sup class="cite" data-refs="williams2017"></sup>; sub-pixel roughness and permanent shadow matter at high incidence<sup class="cite" data-refs="bandfield2015 paige2010b"></sup>. For Mars the 301 K ceiling compares with a 290 K maximum mapped by Viking<sup class="cite" data-refs="kieffer1977"></sup>, and for Europa the 139 K ceiling with a 132 K daytime peak from Galileo<sup class="cite" data-refs="spencer1999"></sup>; Europa's thermal properties and photometry are studied with Galileo, ALMA and Voyager data<sup class="cite" data-refs="rathbun2010 trumbo2018 buratti1983"></sup>.</p>
+      <ol data-topic="thermal"></ol></section>
+    <section><h3>The terrains themselves</h3>
+      <p>Europa's surface records an ocean beneath the ice<sup class="cite" data-refs="carr1998"></sup>: lenticulae<sup class="cite" data-refs="pappalardo1998"></sup>, double ridges<sup class="cite" data-refs="head1999"></sup>, chaos terrain<sup class="cite" data-refs="schmidt2011"></sup>, impact features such as Pwyll<sup class="cite" data-refs="moore2001"></sup>, possible plumes<sup class="cite" data-refs="roth2014 sparks2016"></sup> and the units of the geologic map<sup class="cite" data-refs="greeley2000"></sup>. The Mars windows include layered sedimentary deposits<sup class="cite" data-refs="malin2000a"></sup>, gullies<sup class="cite" data-refs="malin2000b"></sup>, mid-latitude ground ice<sup class="cite" data-refs="byrne2009 dundas2018"></sup>, recurring slope lineae<sup class="cite" data-refs="mcewen2011"></sup>, active dunes<sup class="cite" data-refs="bridges2012 chojnacki2019"></sup>, brain terrain<sup class="cite" data-refs="levy2009"></sup> and the polar layered deposits<sup class="cite" data-refs="smith2016 byrne2009b"></sup>. The lunar windows include irregular mare patches<sup class="cite" data-refs="braden2014"></sup> and Tycho<sup class="cite" data-refs="kruger2016"></sup>.</p>
+      <ol data-topic="geo"></ol></section>
+  </div>
+</div></section>
+</main>
+
+
+<!-- closing flight -->
+<section class="flight dark" id="f2" aria-label="Closing flight over Hebes Mensa">
+  <div class="stick">
+    <div class="poster" hidden style="background-image:url(assets/data/thumbs/hebes-mensa-deposit-2848e-013s.jpg)"></div>
+    <canvas aria-hidden="true"></canvas>
+    <div class="read" aria-hidden="true"><b class="alt-read">0 m</b><span>above the ground</span></div>
+    <div class="cap"><h2>Hebes Mensa, Valles Marineris</h2><p class="collar" data-move="From the deposit floor up to an overview of">From the deposit floor up to an overview of a HiRISE DTM window, true scale. NASA/JPL/University of Arizona.</p></div>
+  </div>
+</section>
+
+<footer class="dark"><div class="wrap">
+  <p><b>LunaREX</b>, planetary science lab. Tucson, Arizona. Est. 2025.<br>Designed and engineered by <b>Raymundo "R@y" Olguin</b>.</p>
+  <p>HiRISE data: NASA/JPL/University of Arizona. Lunar data: public LROC archive (NASA/GSFC/Arizona State University). Europa: NASA/JPL, USGS (Bland et al., 2021) and Steinbrügge et al. (2020). Globes: LROC WAC global mosaic, Viking global color mosaic, and the Voyager and Galileo SSI global mosaic of Europa (NASA/JPL/USGS). Methods and sources: see <a href="#references">References</a>. three.js (MIT). Inter and DM Mono (SIL Open Font License).</p>
+  <p>Color palette from the NASA Horizon Design System (HDS Core), public domain under CC0 1.0. LunaREX is an independent studio and is not affiliated with, sponsored by or endorsed by NASA. LunaREX is not affiliated with LRO or LROC.</p>
+</div></footer>
+
+<script type="module" src="assets/js/main.js"></script>
+</body>
+
+</html>

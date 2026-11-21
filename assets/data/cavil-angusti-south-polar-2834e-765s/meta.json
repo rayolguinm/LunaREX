@@ -1,0 +1,26 @@
+{
+ "title": "Cavil_Angusti_South_Polar_2834E_765S",
+ "slug": "cavil-angusti-south-polar-2834e-765s",
+ "dtm_id": "DTEPC_013720_1035_013707_1035_A01",
+ "ortho": "ESP_013720_1035_RED_C_01_ORTHO.JP2",
+ "grid": 256,
+ "post_m": 16.266666666666666,
+ "native_post_m": 1.0,
+ "downsample": 16.27,
+ "size_m": 4148.0,
+ "z_offset_m": 1485.0294189453125,
+ "z_scale_m": 0.014635879281850962,
+ "nodata": 65535,
+ "relief_m": 951.3321533203125,
+ "window_px": [
+  1421,
+  2404,
+  4148
+ ],
+ "texture_px": 1024,
+ "texture_source_gsd_m": 6.413085937500001,
+ "projection": "POLAR STEREOGRAPHIC",
+ "ortho_emission_deg": null,
+ "valid_fraction": 1.0,
+ "credit": "HiRISE data: NASA/JPL/University of Arizona. DTM produced at HiROC by Raymundo \"R@y\" Olguin."
+}

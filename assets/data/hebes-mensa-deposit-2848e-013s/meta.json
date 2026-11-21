@@ -1,0 +1,26 @@
+{
+ "title": "Hebes_Mensa_deposit_2848E_013S",
+ "slug": "hebes-mensa-deposit-2848e-013s",
+ "dtm_id": "DTEED_017319_1785_017385_1785_A01",
+ "ortho": "ESP_017319_1785_RED_D_01_ORTHO.JP2",
+ "grid": 256,
+ "post_m": 15.015321598978353,
+ "native_post_m": 2.0237352049363,
+ "downsample": 7.42,
+ "size_m": 3828.90700773948,
+ "z_offset_m": -2925.55615234375,
+ "z_scale_m": 0.014041458834134615,
+ "nodata": 65535,
+ "relief_m": 912.69482421875,
+ "window_px": [
+  8877,
+  1404,
+  1892
+ ],
+ "texture_px": 1024,
+ "texture_source_gsd_m": 13.528683763398103,
+ "projection": "EQUIRECTANGULAR",
+ "ortho_emission_deg": null,
+ "valid_fraction": 1.0,
+ "credit": "HiRISE data: NASA/JPL/University of Arizona. DTM produced at HiROC by Raymundo \"R@y\" Olguin."
+}
